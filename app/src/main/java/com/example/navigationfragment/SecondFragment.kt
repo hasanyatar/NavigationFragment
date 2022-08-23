@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 
 
 class SecondFragment : Fragment() {
@@ -22,4 +23,16 @@ class SecondFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.let{
+            val color = SecondFragmentArgs.fromBundle(it).color
+            view.findViewById<android.widget.TextView>(R.id.textView2).setText(color)
+        }
+        view.findViewById<android.widget.Button>(R.id.button2).setOnClickListener{
+            val action = SecondFragmentDirections.actionSecondFragmentToFirstFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
+    }
 }
